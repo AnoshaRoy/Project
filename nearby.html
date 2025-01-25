@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Country Selector</title>
+  <style>
+    body{
+        background-image: url(https://i.pinimg.com/736x/90/4c/75/904c7587f4baa4a79d222a3d0d142044.jpg);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+</style>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f9;
+    }
+
+    .dropdown-container {
+      text-align: center;
+      background: #a19fa8;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    select {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #eeeded;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    select:focus {
+      border-color: #c1c6cb;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #000000;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 15px 30px;
+      font-size: 18px;
+      color: #dcd0d0;
+      background-color: #627385;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+      transform: scale(1.1);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dropdown-container">
+    <h1>Select a Country</h1>
+    <select id="country-dropdown">
+      <option value="Turkey">Turkey</option>
+      <option value="Uganda">Uganda</option>
+      <option value="Germany">Germany</option>
+      <option value="Ethiopia">Ethiopia</option>
+      <option value="Russia">Russia</option>
+      <option value="Poland">Poland</option>
+    </select>
+    <button onclick="handleSubmit()">Enter</button>
+  </div>
+
+  <script>
+    function handleSubmit() {
+      const selectedCountry = document.getElementById('country-dropdown').value;
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const { latitude, longitude } = position.coords;
+          const query = encodeURIComponent(
+            'hospitals, shelters, police stations, fire stations in ' + selectedCountry
+          );
+          const mapUrl = `https://www.google.com/maps/search/${query}/@${latitude},${longitude},15z`;
+          window.open(mapUrl, '_blank');
+        }, (error) => {
+          alert('Unable to retrieve your location. Please ensure location services are enabled.');
+        });
+      } else {
+        alert('Geolocation is not supported by your browser.');
+      }
+    }
+  </script>
+</body>
+</html>
