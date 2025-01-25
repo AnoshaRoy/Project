@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Systems</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        select, input {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .info {
+            display: none;
+            margin: 20px;
+        }
+
+        .countryInfo {
+            display: none;
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .searchForm {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form input, form select, form button {
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .doctor-list {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f1f1f1;
+            border-radius: 8px;
+        }
+
+        .doctor {
+            background-color: white;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Healthcare Systems Information</h1>
+        <p>Select a country to learn about its healthcare system and find doctors or clinics.</p>
+        
+        <select id="countrySelect" onchange="showHealthcareInfo()">
+            <option value="">--Select a Country--</option>
+            <option value="turkey">Turkey</option>
+            <option value="uganda">Uganda</option>
+            <option value="ethiopia">Ethiopia</option>
+            <option value="russia">Russia</option>
+            <option value="germany">Germany</option>
+            <option value="poland">Poland</option>
+        </select>
+    </header>
+
+    <div id="healthcareInfo" class="info">
+        <div id="turkey" class="countryInfo">
+            <h2>Turkey's Healthcare System</h2>
+            <p>Turkey has a mixed healthcare system including public and private healthcare services, providing universal healthcare through public hospitals while offering private healthcare options as well.</p>
+        </div>
+
+        <div id="uganda" class="countryInfo">
+            <h2>Uganda's Healthcare System</h2>
+            <p>Uganda has a developing healthcare system, focusing on primary healthcare services with support from international organizations. Public health services are available but private healthcare is growing.</p>
+        </div>
+
+        <div id="ethiopia" class="countryInfo">
+            <h2>Ethiopia's Healthcare System</h2>
+            <p>The Ethiopian healthcare system is primarily focused on community-based healthcare, with a heavy emphasis on prevention and primary care, though challenges exist due to resource limitations.</p>
+        </div>
+
+        <div id="russia" class="countryInfo">
+            <h2>Russia's Healthcare System</h2>
+            <p>Russia provides a state-funded healthcare system offering services free at the point of use. However, there is variability in quality between urban and rural areas, and private healthcare is also growing rapidly.</p>
+        </div>
+
+        <div id="germany" class="countryInfo">
+            <h2>Germany's Healthcare System</h2>
+            <p>Germany has a universal healthcare system, funded by statutory health insurance, offering high-quality care and services across the country. It is regarded as one of the most efficient healthcare systems globally.</p>
+        </div>
+
+        <div id="poland" class="countryInfo">
+            <h2>Poland's Healthcare System</h2>
+            <p>Poland provides universal healthcare services through the National Health Fund. The system faces challenges like long waiting times, but private healthcare services are increasingly available.</p>
+        </div>
+    </div>
+
+    <div id="doctorSearch" class="searchForm" style="display:none;">
+        <h2>Find a Doctor or Clinic</h2>
+        <form id="searchForm">
+            <label for="language">Language Spoken:</label>
+            <select id="language">
+                <option value="english">English</option>
+                <option value="swahili">Swahili</option>
+                <option value="ethiopian">Ethiopian</option>
+                <option value="russian">Russian</option>
+                <option value="turkish">Turkish</option>
+                <option value="polish">Polish</option>
+                <option value="german">German</option>
+            </select><br>
+
+            <label for="specialty">Specialty:</label>
+            <select id="specialty">
+                <option value="cardiologist">Cardiologist</option>
+                <option value="neurologist">Neurologist</option>
+                <option value="dermatologist">Dermatologist</option>
+                <option value="pediatrician">Pediatrician</option>
+                <option value="orthopedic">Orthopedic</option>
+                <option value="dentist">Dentist</option>
+            </select><br>
+
+            <button type="button" onclick="searchDoctors()">Search</button>
+        </form>
+    </div>
+
+    <div id="doctorResults" class="doctor-list" style="display:none;">
+        <h3>Doctors Available:</h3>
+        <!-- Doctor results will appear here -->
+    </div>
+
+    <script>
+        // Hardcoded sample data for doctors
+        const doctors = [
+            { name: 'Dr. John Doe', country: 'turkey', specialty: 'Cardiologist', language: 'english' },
+            { name: 'Dr. Jane Smith', country: 'turkey', specialty: 'Neurologist', language: 'swahili' },
+            { name: 'Dr. Emily Green', country: 'uganda', specialty: 'Dermatologist', language: 'english' },
+            { name: 'Dr. Michael Brown', country: 'ethiopia', specialty: 'Pediatrician', language: 'ethiopian' },
+            { name: 'Dr. Ivan Petrov', country: 'russia', specialty: 'Orthopedic', language: 'russian' },
+            { name: 'Dr. Olga Ivanova', country: 'germany', specialty: 'Cardiologist', language: 'german' },
+            { name: 'Dr. Klaus Fischer', country: 'poland', specialty: 'Dentist', language: 'polish' }
+        ];
+
+        function showHealthcareInfo() {
+            const countryInfoElements = document.querySelectorAll('.countryInfo');
+            countryInfoElements.forEach(element => {
+                element.style.display = 'none';
+            });
+
+            const selectedCountry = document.getElementById('countrySelect').value;
+            if (selectedCountry) {
+                document.getElementById(selectedCountry).style.display = 'block';
+                document.getElementById('healthcareInfo').style.display = 'block';
+                document.getElementById('doctorSearch').style.display = 'block';
+                document.getElementById('doctorResults').style.display = 'none';
+            } else {
+                document.getElementById('healthcareInfo').style.display = 'none';
+                document.getElementById('doctorSearch').style.display = 'none';
+                document.getElementById('doctorResults').style.display = 'none';
+            }
+        }
+
+        function searchDoctors() {
+            const selectedCountry = document.getElementById('countrySelect').value;
+            const selectedLanguage = document.getElementById('language').value;
+            const specialty = document.getElementById('specialty').value;
+
+            // Filter doctors based on user inputs
+            const filteredDoctors = doctors.filter(doctor => {
+                return doctor.country === selectedCountry &&
+                    (doctor.language === selectedLanguage || selectedLanguage === 'english') &&
+                    doctor.specialty === specialty;
+            });
+
+            // Display results
+            const doctorResultsDiv = document.getElementById('doctorResults');
+            doctorResultsDiv.innerHTML = `<h3>Doctors Available:</h3>`;  // Clear previous results
+
+            if (filteredDoctors.length > 0) {
+                filteredDoctors.forEach(doctor => {
+                    const doctorDiv = document.createElement('div');
+                    doctorDiv.className = 'doctor';
+                    doctorDiv.innerHTML = `
+                        <h4>${doctor.name}</h4>
+                        <p>Specialty: ${doctor.specialty}</p>
+                        <p>Language: ${doctor.language}</p>
+                    `;
+                    doctorResultsDiv.appendChild(doctorDiv);
+                });
+            } else {
+                doctorResultsDiv.innerHTML += "<p>No doctors found based on the selected filters.</p>";
+            }
+
+            doctorResultsDiv.style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
