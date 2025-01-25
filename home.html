@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refugee Connect</title>
+    <style rel="stylesheet" href="css/styles.css"></style>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #2c2c2c, #121212);
+            color: #f0f0f0;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .grunge-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                background-color: #f3f4f6;
+                font-family: Arial, sans-serif;
+            }
+            .sliding-text {
+                font-size: 2rem;
+                font-weight: bold;
+                color: #2563eb;
+                position: relative;
+                overflow: hidden;
+                white-space: nowrap;
+                margin-top: 50vh; /* Move the text further down */
+            }
+            .sliding-text span {
+                display: inline-block;
+                position: relative;
+                animation: slideIn 1.5s ease-out forwards;
+            }
+            @keyframes slideIn {
+                from {
+                    transform: translateX(-100%);
+                }
+                to {
+                    transform: translateX(0);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="sliding-text">
+            <span>Refugee Connect</span>
+        </div>
+    </body>
+    </html>
+    <style>
+        body{
+            background-image: url(https://i.pinimg.com/736x/94/79/75/947975d51214dd8c85b04f11a0e38dbe.jpg);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen p-4">
+    <header class="w-full max-w-5xl text-center py-8">
+        <h1 class="text-5xl font-bold text-gray-100 opacity-0" id="welcome-text">Refugee Connect</h1>
+        <p class="text-xl text-gray-300 mt-2 opacity-0" id="subtitle-text">Support, Empowerment, and Resources</p>
+    </header>
+
+    <main class="w-full max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-6 opacity-0" id="main-content">
+        <div class="grunge-card p-6 rounded-2xl">
+            <h2 class="text-2xl font-semibold">Education</h2>
+            <p class="mt-2">Access educational resources, training programs, and opportunities for growth.</p>
+        </div>
+
+        <div class="grunge-card p-6 rounded-2xl">
+            <h2 class="text-2xl font-semibold">Employment</h2>
+            <p class="mt-2">Find job opportunities and career guidance tailored for refugees.</p>
+        </div>
+
+        <div class="grunge-card p-6 rounded-2xl">
+            <h2 class="text-2xl font-semibold">Healthcare</h2>
+            <p class="mt-2">Connect with medical services and health support networks.</p>
+        </div>
+
+        <div class="grunge-card p-6 rounded-2xl">
+            <h2 class="text-2xl font-semibold">Language</h2>
+            <p class="mt-2">Learn the local language with free courses and language partners.</p>
+        </div>
+
+        <div class="grunge-card p-6 rounded-2xl">
+            <h2 class="text-2xl font-semibold">Financial Stability</h2>
+            <p class="mt-2">Explore financial assistance, budgeting tools, and support programs.</p>
+        </div>
+
+        <div class="grunge-card p-6 rounded-2xl">
+            <h2 class="text-2xl font-semibold">Nearby Locations</h2>
+            <p class="mt-2">Discover shelters, community centers, and essential services near you.</p>
+        </div>
+
+        <div class="grunge-card p-6 rounded-2xl">
+            <h2 class="text-2xl font-semibold">Legal Documents</h2>
+            <p class="mt-2">Get help with legal paperwork, visa applications, and documentation.</p>
+        </div>
+    </main>
+
+    <footer class="w-full max-w-5xl text-center mt-12 text-gray-400 text-sm opacity-0" id="footer">
+        © 2025 Refugee Connect. All rights reserved.
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tl = gsap.timeline();
+
+            tl.to("#welcome-text", { opacity: 1, y: -10, duration: 1 })
+              .to("#subtitle-text", { opacity: 1, y: -10, duration: 1 }, "-=0.5")
+              .to("#main-content", { opacity: 1, y: -10, stagger: 0.2, duration: 1 }, "-=0.5")
+              .to("#footer", { opacity: 1, y: -10, duration: 1 }, "-=0.5");
+        });
+    </script>
+</body>
+</html>
+

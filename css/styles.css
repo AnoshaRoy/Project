@@ -1,8 +1,17 @@
-#head{
-    color: aqua;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline:none;
+    scroll-behavior: smooth;
+    font-family: Impact, Haettenschweiler, 
+    'Arial Narrow Bold', sans-serif;
 }
-
-.abc{
-    color: rgb(212, 9, 9);
-    background-color: black;
+:root {
+    --bg-color:var(--bg-color)
+    --second-bg-colour: #131313
+    --text-colour: white;
+    --main-colour: #00ffee
 }
