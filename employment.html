@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Opportunities for Refugees</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f9;
+    }
+
+    .job-container {
+      text-align: center;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1s ease-in-out;
+      width: 80%;
+      max-width: 800px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #333;
+    }
+
+    .job {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      background-color: #f9f9f9;
+    }
+
+    .job h2 {
+      margin: 0;
+      font-size: 20px;
+      color: #007BFF;
+    }
+
+    .job p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #555;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #007BFF;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+      transform: scale(1.1);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="job-container">
+    <h1>Nearby Job Opportunities</h1>
+    <div id="jobs-list">
+      <!-- Jobs will be dynamically added here -->
+    </div>
+    <div class="button-group">
+      <button onclick="fetchJobs()">Find Jobs</button>
+      <button onclick="refreshJobs()">Refresh Jobs</button>
+    </div>
+  </div>
+
+  <script>
+    function fetchJobs() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const { latitude, longitude } = position.coords;
+          const jobs = generateJobs();
+          displayJobs(jobs);
+        }, (error) => {
+          alert('Unable to retrieve your location. Please ensure location services are enabled.');
+        });
+      } else {
+        alert('Geolocation is not supported by your browser.');
+      }
+    }
+
+    function refreshJobs() {
+      const jobs = generateJobs();
+      displayJobs(jobs);
+    }
+
+    function generateJobs() {
+      // Generate random jobs for demonstration purposes
+      const jobPool = [
+        {
+          title: "Teacher",
+          education: "Bachelor's Degree in Education",
+          skills: "Communication, Classroom Management",
+          salary: "$30/hour",
+          shifts: "Day Shifts"
+        },
+        {
+          title: "Software Developer",
+          education: "Bachelor's Degree in Computer Science",
+          skills: "JavaScript, React, Node.js",
+          salary: "$40/hour",
+          shifts: "Flexible Shifts"
+        },
+        {
+          title: "Caretaker",
+          education: "High School Diploma",
+          skills: "Empathy, Time Management",
+          salary: "$20/hour",
+          shifts: "Night Shifts"
+        },
+        {
+          title: "Warehouse Worker",
+          education: "High School Diploma",
+          skills: "Physical Stamina, Inventory Management",
+          salary: "$18/hour",
+          shifts: "Day and Night Shifts"
+        },
+        {
+          title: "Graphic Designer",
+          education: "Associate Degree in Graphic Design",
+          skills: "Adobe Suite, Creativity",
+          salary: "$25/hour",
+          shifts: "Flexible Shifts"
+        }
+      ];
+
+      return Array.from({ length: 3 }, () => {
+        return jobPool[Math.floor(Math.random() * jobPool.length)];
+      });
+    }
+
+    function displayJobs(jobs) {
+      const jobsList = document.getElementById('jobs-list');
+      jobsList.innerHTML = '';
+
+      jobs.forEach((job) => {
+        const jobElement = document.createElement('div');
+        jobElement.classList.add('job');
+
+        jobElement.innerHTML = `
+          <h2>${job.title}</h2>
+          <p><strong>Education:</strong> ${job.education}</p>
+          <p><strong>Skills:</strong> ${job.skills}</p>
+          <p><strong>Salary:</strong> ${job.salary}</p>
+          <p><strong>Shifts:</strong> ${job.shifts}</p>
+        `;
+
+        jobsList.appendChild(jobElement);
+      });
+    }
+  </script>
+</body>
+</html>
