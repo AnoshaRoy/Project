@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Education Opportunities</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(to bottom, #f8fbff, #dff1e7);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #333;
+    }
+    h1 {
+      font-size: 2.5rem;
+      color: #2c7a7b;
+      margin-bottom: 20px;
+    }
+    .filter-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    select, button {
+      width: 100%;
+      padding: 10px 15px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    select:hover, button:hover {
+      border-color: #2c7a7b;
+    }
+    button {
+      background: linear-gradient(to right, #38b2ac, #2c7a7b);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .program-container {
+      display: none;
+      flex-direction: column;
+      gap: 15px;
+      width: 100%;
+      max-width: 600px;
+      margin-top: 20px;
+    }
+    .program-item {
+      padding: 15px;
+      background: #edf2f7;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .program-item h3 {
+      font-size: 1.2rem;
+      color: #2c7a7b;
+      margin-bottom: 5px;
+    }
+    .program-item p {
+      font-size: 0.9rem;
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Education Opportunities</h1>
+
+  <div class="filter-container">
+    <label for="age-group">Select Age Group:</label>
+    <select id="age-group">
+      <option value="">-- Select Age Group --</option>
+      <option value="children">Children (5-12 years)</option>
+      <option value="teens">Teens (13-18 years)</option>
+      <option value="adults">Adults (18+ years)</option>
+    </select>
+
+    <label for="fee">Select Fee Structure:</label>
+    <select id="fee">
+      <option value="">-- Select Fee Structure --</option>
+      <option value="free">Free</option>
+      <option value="low-cost">Low-Cost</option>
+      <option value="paid">Paid</option>
+    </select>
+
+    <label for="country">Select Country:</label>
+    <select id="country">
+      <option value="">-- Select Country --</option>
+      <option value="Turkey">Turkey</option>
+      <option value="Uganda">Uganda</option>
+      <option value="Germany">Germany</option>
+      <option value="Ethiopia">Ethiopia</option>
+      <option value="Russia">Russia</option>
+      <option value="Poland">Poland</option>
+    </select>
+
+    <button onclick="filterPrograms()">Search Programs</button>
+  </div>
+
+  <div id="program-container" class="program-container">
+    <h2>Available Programs</h2>
+    <div id="program-list"></div>
+  </div>
+
+  <script>
+    const educationalPrograms = [
+      {
+        title: "Free Kids Education Program",
+        age: "children",
+        fee: "free",
+        country: "Turkey",
+        description: "A free education program tailored for kids aged 5-12 in Turkey.",
+      },
+      {
+        title: "Teen Development Course",
+        age: "teens",
+        fee: "low-cost",
+        country: "Uganda",
+        description: "Affordable skill-building course for teenagers in Uganda.",
+      },
+      {
+        title: "Adult Job Skills Training",
+        age: "adults",
+        fee: "paid",
+        country: "Germany",
+        description: "Professional training for adults in Germany to enhance job skills.",
+      },
+      {
+        title: "Literacy Campaign for Children",
+        age: "children",
+        fee: "free",
+        country: "Ethiopia",
+        description: "Free literacy programs for young children in Ethiopia.",
+      },
+      {
+        title: "Teen STEM Bootcamp",
+        age: "teens",
+        fee: "free",
+        country: "Russia",
+        description: "A free STEM bootcamp for teens in Russia.",
+      },
+      {
+        title: "Career Guidance for Adults",
+        age: "adults",
+        fee: "low-cost",
+        country: "Poland",
+        description: "Low-cost career guidance programs for adults in Poland.",
+      },
+    ];
+
+    function filterPrograms() {
+      const ageGroup = document.getElementById("age-group").value;
+      const fee = document.getElementById("fee").value;
+      const country = document.getElementById("country").value;
+
+      const filteredPrograms = educationalPrograms.filter((program) => {
+        return (
+          (!ageGroup || program.age === ageGroup) &&
+          (!fee || program.fee === fee) &&
+          (!country || program.country === country)
+        );
+      });
+
+      const programContainer = document.getElementById("program-container");
+      const programList = document.getElementById("program-list");
+      programList.innerHTML = "";
+
+      if (filteredPrograms.length > 0) {
+        filteredPrograms.forEach((program) => {
+          const programDiv = document.createElement("div");
+          programDiv.className = "program-item";
+          programDiv.innerHTML = `
+            <h3>${program.title}</h3>
+            <p><strong>Country:</strong> ${program.country}</p>
+            <p>${program.description}</p>
+          `;
+          programList.appendChild(programDiv);
+        });
+        programContainer.style.display = "flex";
+      } else {
+        programContainer.style.display = "flex";
+        programList.innerHTML = "<p>No programs match your criteria.</p>";
+      }
+    }
+  </script>
+</body>
+</html>
