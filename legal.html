@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legal Documents Access for Refugees</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      color: #333;
+    }
+    header {
+      width: 100%;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      padding: 20px 0;
+      text-align: center;
+      color: white;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+    header h1 {
+      font-size: 2rem;
+      margin: 0;
+    }
+    .filter-container {
+      margin-top: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 600px;
+    }
+    .filter-container label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      display: block;
+    }
+    select, button {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: border-color 0.3s;
+    }
+    select:hover, button:hover {
+      border-color: #007cba;
+    }
+    button {
+      background: linear-gradient(to right, #36d1dc, #5b86e5);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+    .document-container {
+      margin-top: 20px;
+      width: 90%;
+      max-width: 600px;
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .document-item {
+      padding: 15px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .document-item h3 {
+      font-size: 1.2rem;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+    .document-item p {
+      font-size: 0.9rem;
+      margin: 5px 0;
+    }
+    footer {
+      margin-top: auto;
+      padding: 10px;
+      background: #4facfe;
+      text-align: center;
+      color: white;
+      width: 100%;
+    }
+    footer p {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Access Legal Documents</h1>
+  </header>
+
+  <div class="filter-container">
+    <label for="document-type">Select Document Type:</label>
+    <select id="document-type">
+      <option value="">-- Select Document Type --</option>
+      <option value="identity">Identity Documents</option>
+      <option value="residency">Residency Permits</option>
+      <option value="work-permit">Work Permits</option>
+      <option value="asylum">Asylum Applications</option>
+    </select>
+
+    <label for="urgency">Select Urgency Level:</label>
+    <select id="urgency">
+      <option value="">-- Select Urgency Level --</option>
+      <option value="standard">Standard</option>
+      <option value="urgent">Urgent</option>
+    </select>
+
+    <label for="country">Select Country:</label>
+    <select id="country">
+      <option value="">-- Select Country --</option>
+      <option value="Turkey">Turkey</option>
+      <option value="Uganda">Uganda</option>
+      <option value="Germany">Germany</option>
+      <option value="Ethiopia">Ethiopia</option>
+      <option value="Russia">Russia</option>
+      <option value="Poland">Poland</option>
+    </select>
+
+    <button onclick="filterDocuments()">Search Documents</button>
+  </div>
+
+  <div id="document-container" class="document-container">
+    <h2>Available Legal Documents</h2>
+    <div id="document-list"></div>
+  </div>
+
+  <footer>
+    <p>© 2025 Refugee Legal Support</p>
+  </footer>
+
+  <script>
+    const legalDocuments = [
+      {
+        title: "National ID Card Application",
+        type: "identity",
+        urgency: "standard",
+        country: "Turkey",
+        description: "Application process for obtaining a national ID card in Turkey.",
+      },
+      {
+        title: "Work Permit Assistance",
+        type: "work-permit",
+        urgency: "urgent",
+        country: "Germany",
+        description: "Fast-track work permits for refugees in Germany.",
+      },
+      {
+        title: "Residency Permit Renewal",
+        type: "residency",
+        urgency: "standard",
+        country: "Ethiopia",
+        description: "Guidelines for renewing your residency permit in Ethiopia.",
+      },
+      {
+        title: "Asylum Application Guidance",
+        type: "asylum",
+        urgency: "urgent",
+        country: "Poland",
+        description: "Legal guidance for urgent asylum applications in Poland.",
+      },
+      {
+        title: "Temporary Residency Permit",
+        type: "residency",
+        urgency: "standard",
+        country: "Uganda",
+        description: "Guidelines for temporary residency permits in Uganda.",
+      },
+      {
+        title: "Employment Permit Application",
+        type: "work-permit",
+        urgency: "standard",
+        country: "Russia",
+        description: "Apply for employment permits in Russia.",
+      },
+    ];
+
+    function filterDocuments() {
+      const documentType = document.getElementById("document-type").value.trim();
+      const urgency = document.getElementById("urgency").value.trim();
+      const country = document.getElementById("country").value.trim();
+
+      const filteredDocuments = legalDocuments.filter((doc) => {
+        return (
+          (!documentType || doc.type === documentType) &&
+          (!urgency || doc.urgency === urgency) &&
+          (!country || doc.country === country)
+        );
+      });
+
+      const documentContainer = document.getElementById("document-container");
+      const documentList = document.getElementById("document-list");
+      documentList.innerHTML = "";
+
+      if (filteredDocuments.length > 0) {
+        filteredDocuments.forEach((doc) => {
+          const docDiv = document.createElement("div");
+          docDiv.className = "document-item";
+          docDiv.innerHTML = `
+            <h3>${doc.title}</h3>
+            <p><strong>Country:</strong> ${doc.country}</p>
+            <p>${doc.description}</p>
+          `;
+          documentList.appendChild(docDiv);
+        });
+        documentContainer.style.display = "flex";
+      } else {
+        documentContainer.style.display = "flex";
+        documentList.innerHTML = "<p>No legal documents match your criteria.</p>";
+      }
+    }
+  </script>
+</body>
+</html>
